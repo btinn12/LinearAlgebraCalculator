@@ -3,18 +3,120 @@
 		<title>Linear Algebra Calculator</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
 		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-2.2.4.min.js" 
+		integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 		
 		<style>
-		
+			div {
+				font-family: "Century Gothic";
+			}
+			
+			#app-container {
+				margin-top: 20px;
+			}
+			
+			.matrix-button {
+				background-color: white;
+				color: black;
+			}
+			
+			fieldset {
+				border: 1px solid #cccccc;
+			}
+			
+			h2 {
+				margin-top: 0;
+			}
+			
+			div.app-window {
+				padding: 10px;
+				border: 2px solid #cccccc;
+				box-shadow: 3px 4px 10px 1px #cccccc;
+				border-radius: 4px;
+			}
+			
+			.btn {
+				margin-bottom: 5px;
+			}
+			
+			.btn:active {
+				background-color: #bbbbbb;
+			}
+			
+			*:focus {
+				outline: 0 !important;
+			}
+
+			button:hover {
+				background-color: #c2c2c2;
+			}
+			
+			fieldset {
+				
+			}
+			
+			.matrix-input {
+				width: 20px;
+				height: 20px;
+				margin: 10px;
+				border: 1px solid #EEEEEE;
+			}
+			
+			.matrix-input:active, .matrix-input:hover {
+				border: 1px solid #CCCCCC;
+			}
 		</style>
 		
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
-		
+		<script>
+			
+			
+			$(document).ready(function () {
+				$("#addMatrix").click(handleAddMatrix);
+				
+				function handleAddMatrix() {
+				
+				}
+			});
 		</script>
 	</head>
 	<body>
 		<div class="container">
 			<h1>Linear Algebra Calculator</h1>
+			<div id="app-container" class="row">
+				<div class="col-md-8">
+					<div class="app-window">
+						<h2>Equation Window</h2>
+						<fieldset>
+							<input type="text" class="matrix-input" />
+							<input type="text" class="matrix-input" />
+							<input type="text" class="matrix-input" />
+							<input type="text" class="matrix-input" />
+						</fieldset>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="app-window">
+						<h2>Operations</h2>
+						<button type="button" id="addMatrix" class="btn btn-block">Add Matrix</button>
+						<h4>Common Matrices</h4>
+						<button type="button" id="add2x2" class="btn">2x2</button>
+						<button type="button" id="add3x3" class="btn">3x3</button>
+						<button type="button" id="add4x4" class="btn">4x4</button>
+						<button type="button" id="add5x5" class="btn">5x5</button>
+						
+						<hr>
+						
+						<h4>Functions</h4>
+						<button type="button" class="btn" id="inverse">Inverse</button>
+						<button type="button" class="btn" id="rref">Reduced Row Echelon Form</button>
+						<button type="button" class="btn" id="LU">LU Factorization</button>
+						
+						<button type="button" class="btn" id="add"><i class="glyphicon glyphicon-plus"></i></button>
+						<button type="button" class="btn" id="subtract"><i class="glyphicon glyphicon-minus"></i></button>
+						<button type="button" class="btn" id="multiply"><i class="glyphicon glyphicon-remove"></i></button>
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>
