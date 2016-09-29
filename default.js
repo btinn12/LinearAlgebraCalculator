@@ -24,4 +24,19 @@ $(document).ready(function() {
           }
       }
     };
+	
+	function matrixMult(A, B) {
+		var C = new Matrix(A.rows, B.cols);
+		var sum = 0;
+		for (var i = 0; i < B.cols; i++) {
+			for (var j = 0; j < A.rows; j++) {
+				for (var k = 0; k < A.cols; k++) {
+					sum += A[j][k] + B[k][i];
+				}
+				C[j][i] = sum;
+				sum = 0;
+			}
+		}
+		return C;
+	}
 });
