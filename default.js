@@ -12,6 +12,10 @@ $(document).ready(function() {
     return this.val[r][c];
   }
   
+  Matrix.prototype.set = function(val, r, c) {
+	  this.val[r][c] = val;
+  }
+  
   Matrix.prototype.initialize = function() {
       for (var i = 0; i < this.rows; i++) {
           this.val[i] = new Array();
