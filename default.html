@@ -49,15 +49,16 @@
 			
 			fieldset {
 				border: 1px solid #cccccc;
-				width: 22%;
+				display: inline-block;
+				margin: 10px;
 			}
 			
 			.matrix-input {
-				width: 18.8%;
-				height: 16.8%;
-				margin: 6.2%;
+				
 				border: 1px solid #EEEEEE;
 				text-align: center;
+				margin: 6.2%;
+				height: 16.8%;
 			}
 			
 			.matrix-input:active, .matrix-input:hover, .matrix-input:focus {
@@ -86,12 +87,16 @@
 			
 			
 			$(document).ready(function () {
-				$("#addMatrix").click(handleAddMatrix);
-				
+				var amountOfMatrices = 0;
+				$("#addMatrix").click(function() {handleAddMatrix()});
+				$("#create").click(function() {createMatrix()});
+				$("#add2x2").click(function() {addMatrix(2,2)});
+				$("#add3x3").click(function() {addMatrix(3,3)});
+				$("#add4x4").click(function() {addMatrix(4,4)});
+				$("#add5x5").click(function() {addMatrix(5,5)});
 				
 				function handleAddMatrix() {
 					$(".matrix-maker").css('display', 'inline-block');
-					$("#create").click(createMatrix);
 				}
 				
 				function createMatrix()
@@ -106,8 +111,30 @@
 					}
 					else {
 						$("div.matrix-maker").html("");
+						addMatrix(rows,cols);
 						$(".matrix-maker").css('display', 'none');
 					}
+				}
+				
+				function addMatrix(rows, cols) {
+					amountOfMatrices++;
+					var matrixName = "m" + amountOfMatrices;
+					var matrixFieldset = $("<fieldset id=\"" + matrixName + "\"></fieldset>")
+					$("#equationWindow").append(matrixFieldset);
+					$("#" + matrixName).css('display', 'none');
+					for(i = 0;i<rows;i++)
+					{
+						for(j = 0;j<cols;j++)
+						{
+							$("#m" + amountOfMatrices).append($("<input id=\"" + i + "-" + j + "\" class=\"matrix-input\" />"));
+						}
+					}
+					
+					var fieldsetWidth = 10*cols;
+					var inputWidth = (93.6 - 6.2*2*cols)/cols;
+					$("#" + matrixName).css('width', fieldsetWidth + '%');
+					$("#" + matrixName + " input").css('width', inputWidth + '%');
+					$("#" + matrixName).css('display','inline-block');
 				}
 			});
 		</script>
@@ -119,17 +146,6 @@
 				<div class="col-md-8">
 					<div id="equationWindow" class="app-window">
 						<h2>Equation Window</h2>
-						<fieldset>
-							<input type="text" class="matrix-input" />
-							<input type="text" class="matrix-input" />
-							<input type="text" class="matrix-input" />
-							<input type="text" class="matrix-input" />
-							<input type="text" class="matrix-input" />
-							<input type="text" class="matrix-input" />
-							<input type="text" class="matrix-input" />
-							<input type="text" class="matrix-input" />
-							<input type="text" class="matrix-input" />
-						</fieldset>
 					</div>
 				</div>
 				<div class="col-md-4">
