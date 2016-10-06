@@ -120,7 +120,7 @@
 					amountOfMatrices++;
 					var matrixName = "m" + amountOfMatrices;
 					var matrixFieldset = $("<fieldset id=\"" + matrixName + "\"></fieldset>")
-					$("#equationWindow").append(matrixFieldset);
+					$("#matrices-container").append(matrixFieldset);
 					$("#" + matrixName).css('display', 'none');
 					for(i = 0;i<rows;i++)
 					{
@@ -130,10 +130,13 @@
 						}
 					}
 					
-					var fieldsetWidth = 10*cols;
-					var inputWidth = (93.6 - 6.2*2*cols)/cols;
+					var fieldsetWidth = 10 + (cols-1)*5;
+					var margin = 6.2 - 0.8*(cols-2);
+					var inputWidth = (100 - margin*2*cols)/cols;
+					
 					$("#" + matrixName).css('width', fieldsetWidth + '%');
 					$("#" + matrixName + " input").css('width', inputWidth + '%');
+					$("#" + matrixName + " input").css('margin', margin + '%');
 					$("#" + matrixName).css('display','inline-block');
 				}
 			});
@@ -146,6 +149,10 @@
 				<div class="col-md-8">
 					<div id="equationWindow" class="app-window">
 						<h2>Equation Window</h2>
+						<div class="row">
+							<div id="matrices-container" class="col-md-9"></div>
+							<button id="submit" class="col-md-2 btn">=</button>
+						</div>
 					</div>
 				</div>
 				<div class="col-md-4">
