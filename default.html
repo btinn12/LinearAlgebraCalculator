@@ -81,6 +81,10 @@
 			#error {
 				color: red;
 			}
+			
+			#matrices-container {
+				vertical-align: middle;
+			}
 		</style>
 		
 		<script>
@@ -94,6 +98,9 @@
 				$("#add3x3").click(function() {addMatrix(3,3)});
 				$("#add4x4").click(function() {addMatrix(4,4)});
 				$("#add5x5").click(function() {addMatrix(5,5)});
+				
+				$("#submit").click(function() {retrieveMatrix()});
+				$("#clear").click(function() {clearEquation()});
 				
 				function handleAddMatrix() {
 					$(".matrix-maker").css('display', 'inline-block');
@@ -139,6 +146,11 @@
 					$("#" + matrixName + " input").css('margin', margin + '%');
 					$("#" + matrixName).css('display','inline-block');
 				}
+				
+				function clearEquation()
+				{
+					$("#matrices-container").html("");
+				}
 			});
 		</script>
 	</head>
@@ -151,7 +163,10 @@
 						<h2>Equation Window</h2>
 						<div class="row">
 							<div id="matrices-container" class="col-md-9"></div>
-							<button id="submit" class="col-md-2 btn">=</button>
+							<div class="col-md-3">
+								<button id="submit" class="btn btn-block"><i class="glyphicon glyphicon-arrow-right"></i></button>
+								<button id="clear" class="btn btn-block">Clear</button>
+							</div>
 						</div>
 					</div>
 				</div>
