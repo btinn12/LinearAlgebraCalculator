@@ -1,0 +1,78 @@
+div {
+	font-family: "Century Gothic";
+}
+
+#app-container {
+	margin-top: 20px;
+}
+
+.matrix-button {
+	background-color: white;
+	color: black;
+}
+
+h2 {
+	margin-top: 0;
+}
+
+div.app-window {
+	padding: 10px;
+	border: 2px solid #cccccc;
+	box-shadow: 3px 4px 10px 1px #cccccc;
+	border-radius: 4px;
+}
+
+.btn {
+	margin-bottom: 5px;
+}
+
+.btn:active {
+	background-color: #bbbbbb;
+}
+
+*:focus {
+	outline: 0 !important;
+}
+
+button:hover {
+	background-color: #c2c2c2;
+}
+
+fieldset {
+	border: 1px solid #cccccc;
+	display: inline-block;
+	margin: 10px;
+}
+
+.matrix-input {
+	
+	border: 1px solid #EEEEEE;
+	text-align: center;
+	margin: 6.2%;
+	height: 16.8%;
+}
+
+.matrix-input:active, .matrix-input:hover, .matrix-input:focus {
+	border: 1px solid #CCCCCC;
+}
+
+.matrix-maker {
+	max-width: 30%;
+	display: none;
+}
+
+div.matrix-maker {
+	max-width:100%;
+}
+input.matrix-maker {
+	margin-right: 10px;
+	max-width: 10%;
+}
+
+#error {
+	color: red;
+}
+
+#matrices-container {
+	vertical-align: middle;
+}
