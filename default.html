@@ -52,12 +52,10 @@
 					var matrixFieldset = $("<fieldset id=\"" + matrixName + "\" data-row=\"" + rows + "\" data-col=\"" + cols + "\"></fieldset>");
 					$("#matrices-container").append(matrixFieldset);
 					$("#" + matrixName).css('display', 'none');
-					for(i = 0;i<rows;i++)
+					for(i = 0;i<rows*cols;i++)
 					{
-						for(j = 0;j<cols;j++)
-						{
-							$("#m" + amountOfMatrices).append($("<input id=\"" + i + "-" + j + "\" class=\"matrix-input\" />"));
-						}
+						$("#m" + amountOfMatrices).append($("<input class=\"matrix-input\" />"));
+						
 					}
 					
 					var fieldsetWidth = 10 + (cols-1)*5;
@@ -70,16 +68,33 @@
 					$("#" + matrixName).css('display','inline-block');
 				}
 				
+				function addOutputMatrix(matrix) {
+					alert(typeof(matrix));
+					var matrixFieldset = $("<fieldset id=\"out\"></fieldset>");
+					$("#outputWindow").append(matrixFieldset);
+					for (var i = 0; i < matrix.rows; i++) {
+						for (var j = 0; j < matrix.cols; j++) {
+							var val = matrix.get(i, j);
+							$("#out").append("<input type=\"text\" class=\"matrix-input\" value=\"" + val + "\" disabled />");
+						}
+					}
+					
+					var fieldsetWidth = 10 + (matrix.cols-1)*5;
+					var margin = 6.2 - 0.8*(matrix.cols-2);
+					var inputWidth = (100 - margin*2*matrix.cols)/matrix.cols;
+					
+					$("#out").css('width', fieldsetWidth + '%');
+					$("#out input").css('width', inputWidth + '%');
+					$("#out input").css('margin', margin + '%');
+					$("#out").css('display','inline-block');
+				}
+				
 				function clearEquation()
 				{
 					$("#matrices-container").html("");
 				}
-				
-				
-
 
 				function retrieveMatrix(matrixName) {
-					//var inputs = $("#" + matrixName).children("inputs");
 					var rows = $("#" + matrixName).attr("data-row");
 					var cols = $("#" + matrixName).attr("data-col");
 					var A = new Matrix(parseInt(rows), parseInt(cols));
