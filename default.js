@@ -38,9 +38,10 @@ $(document).ready(function () {
 			if(matrix1.rows != matrix2.rows || matrix1.cols != matrix2.cols)
 			{
 				addOutputMessage("3");
+			} else {
+				var outputMatrix = add(matrix1, matrix2);
+				addOutputMatrix(outputMatrix);
 			}
-			var outputMatrix = add(matrix1, matrix2);
-			addOutputMatrix(outputMatrix);
 		}	
 	}
 	
@@ -141,7 +142,7 @@ $(document).ready(function () {
 		var inputs = $("#" + matrixName + " input");
 		jQuery.each(inputs, function(i, el) {
 			var element = $(el);
-			A.set(parseInT(element.val()), Math.floor(i/rows), i%rows);
+			A.set(parseInt(element.val()), Math.floor(i/cols), i%cols);
 		});
 		Matrices[Matrices.length] = A;
 		
