@@ -50,6 +50,90 @@ $(document).ready(function () {
 	$("#submit").click(function() {retrieveMatrix("m1")});
 	$("#clear").click(function() {clearEquation()});
 	
+	$("#determinant").click(function() {handleDeterminant()});
+	$("#add").click(function() {handleAddition()});
+	
+	function handleAddition() {
+		if(amountOfMatrices<2)
+		{
+			addOutputMessage("1");
+		}
+		else if(amountOfMatrices>2)
+		{
+			addOutputMessage("2");
+		}
+		else
+		{
+			var matrix1 = retrieveMatrix("m1");
+			var matrix2 = retrieveMatrix("m2");
+			if(matrix1.rows != matrix2.rows || matrix1.cols != matrix2.cols)
+			{
+				addOutputMessage("3");
+			}
+			var outputMatrix = add(matrix1, matrix2);
+			addOutputMatrix(outputMatrix);
+		}	
+	}
+	
+	function add(m1, m2)
+	{
+		var sum = new Matrix(m1.rows, m1.cols)
+		for(var i = 0;i<m1.rows;i++)
+		{
+			for(var j = 0;j<m1.cols;j++)
+			{
+				var plus = parseInt(m1.get(i,j)) + parseInt(m2.get(i,j));
+				sum.set(plus, i, j);
+			}
+		}
+		return sum;
+	}
+	
+	function handleDeterminant() {
+		var matrix = retrieveMatrix("m1");
+		var output = determinant(matrix, matrix.rows);
+		var outputMatrix = new Matrix(1,1);
+		outputMatrix.set(output, 0, 0);
+		addOutputMatrix(outputMatrix);
+		
+	}
+				
+	function determinant(matrix, n)
+	{
+		if(n == 2)
+		{
+			return matrix.get(0,0)*matrix.get(1,1) - matrix.get(0,1)*matrix.get(1,0);
+		}
+		else 
+		{
+			var sum = 0;
+			for(var i = 0;i<n;i++)
+			{
+				sum += Math.pow(-1,i)*matrix.get(0,i)*determinant(createCofactor(matrix, i), n-1);
+			}
+			return sum;
+		}
+	}
+	
+	function createCofactor(matrix, col)
+	{
+		var cofactor = new Matrix(matrix.rows - 1,matrix.cols - 1);
+		var coIndex = 0;
+		for(var i = 0;i<matrix.cols;i++)
+		{
+			if(i == col){}
+			else
+			{
+				for(var j = 1;j<matrix.rows;j++)
+				{
+					cofactor.set(matrix.get(j,i), j-1, coIndex);
+				}
+				coIndex++;
+			}
+		}
+		return cofactor;
+	}
+	
 	function handleAddMatrix() {
 		$(".matrix-maker").css('display', 'inline-block');
 	}
@@ -113,9 +197,22 @@ $(document).ready(function () {
 		$("#out").css('display','inline-block');
 	}
 	
+	function addOutputMessage(msg)
+	{
+		var error = $("#outputError");
+		switch(msg)
+		{
+			case "1": error.html("Not enough matrices to compute.");
+			case "2": error.html("Too many matrices to compute.");
+			case "3": error.html("Incorrect rows/columns to compute.")
+			default: error.html(msg);
+		}
+	}
+	
 	function clearEquation()
 	{
-		$("#matrices-container").html("");
+		$("#matrices-container").empty();
+		amountOfMatrices = 0;
 	}
 
 	function retrieveMatrix(matrixName) {
@@ -128,5 +225,7 @@ $(document).ready(function () {
 			A.set(element.val(), Math.floor(i/rows), i%rows);
 		});
 		Matrices[Matrices.length] = A;
+		
+		return A;
 	}
 });

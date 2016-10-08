@@ -69,7 +69,7 @@ input.matrix-maker {
 	max-width: 10%;
 }
 
-#error {
+.error {
 	color: red;
 }
 
