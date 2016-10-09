@@ -56,7 +56,7 @@ function subtract(m1, m2) {
 	for (var i = 0; i < m1.rows; i++) {
 		for (var j = 0; j < m1.cols; j++) {
 			var sub = parseInt(m1.get(i, j)) - parseInt(m2.get(i, j));
-			sum.set(sub, i, j);
+			difference.set(sub, i, j);
 		}
 	}
 	return difference;

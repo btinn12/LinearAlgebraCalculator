@@ -72,8 +72,8 @@ $(document).ready(function () {
 	}
 	
 	function retrieveInput() {
-		for (var i = 0; i < numInputMatrices; i++) {
-			inputMatrices[i] = retrieveMatrix("m" + i);
+		for (var i = 1; i <= numInputMatrices; i++) {
+			Matrices[i - 1] = retrieveMatrix("m" + i);
 		}
 	}
 	
@@ -169,8 +169,6 @@ $(document).ready(function () {
 			var element = $(el);
 			A.set(parseInt(element.val()), Math.floor(i/cols), i%cols);
 		});
-		Matrices[Matrices.length] = A;
-		
 		return A;
 	}
 });
