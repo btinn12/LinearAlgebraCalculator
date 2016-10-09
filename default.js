@@ -3,12 +3,6 @@ $(document).ready(function () {
 	var amountOfMatrices = 0;
 	var Matrices = [];
 	
-	function retrieveInput() {
-		for (var i = 0; i < numInputMatrices; i++) {
-			inputMatrices[i] = retrieveMatrix("m" + i);
-		}
-	}
-	
 	$("#addMatrix").click(function() {handleAddMatrix()});
 	$("#create").click(function() {createMatrix()});
 	$("#add2x2").click(function() {addMatrix(2,2)});
@@ -21,6 +15,18 @@ $(document).ready(function () {
 	
 	$("#determinant").click(function() {handleDeterminant()});
 	$("#add").click(function() {handleAddition()});
+	
+	function handleAddMatrix() {
+		$(".matrix-maker").css('display', 'inline-block');
+	}
+	
+	function handleDeterminant() {
+		var matrix = retrieveMatrix("m1");
+		var output = determinant(matrix, matrix.rows);
+		var outputMatrix = new Matrix(1,1);
+		outputMatrix.set(output, 0, 0);
+		addOutputMatrix(outputMatrix);	
+	}
 	
 	function handleAddition() {
 		if(amountOfMatrices<2)
@@ -45,17 +51,10 @@ $(document).ready(function () {
 		}	
 	}
 	
-	function handleDeterminant() {
-		var matrix = retrieveMatrix("m1");
-		var output = determinant(matrix, matrix.rows);
-		var outputMatrix = new Matrix(1,1);
-		outputMatrix.set(output, 0, 0);
-		addOutputMatrix(outputMatrix);
-		
-	}
-	
-	function handleAddMatrix() {
-		$(".matrix-maker").css('display', 'inline-block');
+	function retrieveInput() {
+		for (var i = 0; i < numInputMatrices; i++) {
+			inputMatrices[i] = retrieveMatrix("m" + i);
+		}
 	}
 	
 	function createMatrix()
@@ -133,6 +132,12 @@ $(document).ready(function () {
 	{
 		$("#matrices-container").empty();
 		amountOfMatrices = 0;
+		clearOutput();
+	}
+	
+	function clearOutput() {
+		$("#outputWindow").empty();
+		
 	}
 
 	function retrieveMatrix(matrixName) {
