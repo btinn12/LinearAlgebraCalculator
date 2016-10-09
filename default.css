@@ -73,6 +73,7 @@ div.matrix-maker {
 input.matrix-maker {
 	margin-right: 10px;
 	max-width: 10%;
+	text-align: center;
 }
 
 .error {

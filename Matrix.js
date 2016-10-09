@@ -28,9 +28,9 @@ function matrixMult(A, B) {
 	for (var i = 0; i < B.cols; i++) {
 		for (var j = 0; j < A.rows; j++) {
 			for (var k = 0; k < A.cols; k++) {
-				sum += A[j][k] + B[k][i];
+				sum += A.get(j, k) * B.get(k, i);
 			}
-			C[j][i] = sum;
+			C.set(sum, j, i);
 			sum = 0;
 		}
 	}

@@ -16,6 +16,7 @@ $(document).ready(function () {
 	$("#determinant").click(function() {handleDeterminant()});
 	$("#add").click(function() {handleAddition()});
 	$("#subtract").click(function() {handleSubtraction()});
+	$("#multiply").click(function() {handleMultiply()});
 	
 	function handleAddMatrix() {
 		$(".matrix-maker").css('display', 'inline-block');
@@ -66,6 +67,24 @@ $(document).ready(function () {
 				addOutputMessage("3");
 			} else {
 				var outputMatrix = subtract(matrix1, matrix2);
+				addOutputMatrix(outputMatrix);
+			}
+		}
+	}
+	
+	function handleMultiply() {
+		retrieveInput();
+		if (numInputMatrices < 2) {
+			addOutputMessage("1");
+		} else if (numInputMatrices > 2) {
+			addOutputMessage("2");
+		} else {
+			var matrix1 = Matrices[0];
+			var matrix2 = Matrices[1];
+			if (matrix1.cols != matrix2.rows) {
+				addOutputMessage("3");
+			} else {
+				var outputMatrix = matrixMult(matrix1, matrix2);
 				addOutputMatrix(outputMatrix);
 			}
 		}
