@@ -1,6 +1,6 @@
 $(document).ready(function () {
 		
-	var amountOfMatrices = 0;
+	var numInputMatrices = 0;
 	var Matrices = [];
 	
 	$("#addMatrix").click(function() {handleAddMatrix()});
@@ -29,11 +29,11 @@ $(document).ready(function () {
 	}
 	
 	function handleAddition() {
-		if(amountOfMatrices<2)
+		if(numInputMatrices<2)
 		{
 			addOutputMessage("1");
 		}
-		else if(amountOfMatrices>2)
+		else if(numInputMatrices>2)
 		{
 			addOutputMessage("2");
 		}
@@ -75,14 +75,14 @@ $(document).ready(function () {
 	}
 	
 	function addMatrix(rows, cols) {
-		amountOfMatrices++;
-		var matrixName = "m" + amountOfMatrices;
+		numInputMatrices++;
+		var matrixName = "m" + numInputMatrices;
 		var matrixFieldset = $("<fieldset id=\"" + matrixName + "\" data-row=\"" + rows + "\" data-col=\"" + cols + "\"></fieldset>");
 		$("#matrices-container").append(matrixFieldset);
 		$("#" + matrixName).css('display', 'none');
 		for(i = 0;i<rows*cols;i++)
 		{
-			$("#m" + amountOfMatrices).append($("<input class=\"matrix-input\" />"));
+			$("#" + matrixName).append($("<input class=\"matrix-input\" />"));
 			
 		}
 		
@@ -102,7 +102,7 @@ $(document).ready(function () {
 		for (var i = 0; i < matrix.rows; i++) {
 			for (var j = 0; j < matrix.cols; j++) {
 				var val = matrix.get(i, j);
-				$("#out").append("<input type=\"text\" class=\"matrix-input\" value=\"" + val + "\" disabled />");
+				$("#out").append("<input type=\"text\" class=\"matrix-output\" value=\"" + val + "\" disabled />");
 			}
 		}
 		
@@ -131,7 +131,7 @@ $(document).ready(function () {
 	function clearEquation()
 	{
 		$("#matrices-container").empty();
-		amountOfMatrices = 0;
+		numInputMatrices = 0;
 		clearOutput();
 	}
 	

@@ -46,10 +46,16 @@ fieldset {
 }
 
 .matrix-input {
-	
 	border: 1px solid #EEEEEE;
 	text-align: center;
 	height: 16.8%;
+}
+
+.matrix-output {
+	border: 1px solid #EEEEEE;
+	text-align: center;
+	height: 16.8%;
+	background-color: white;
 }
 
 .matrix-input:active, .matrix-input:hover, .matrix-input:focus {
