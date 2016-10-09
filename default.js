@@ -15,6 +15,7 @@ $(document).ready(function () {
 	
 	$("#determinant").click(function() {handleDeterminant()});
 	$("#add").click(function() {handleAddition()});
+	$("#subtract").click(function() {handleSubtraction()});
 	
 	function handleAddMatrix() {
 		$(".matrix-maker").css('display', 'inline-block');
@@ -29,6 +30,7 @@ $(document).ready(function () {
 	}
 	
 	function handleAddition() {
+		retrieveInput();
 		if(numInputMatrices<2)
 		{
 			addOutputMessage("1");
@@ -39,8 +41,8 @@ $(document).ready(function () {
 		}
 		else
 		{
-			var matrix1 = retrieveMatrix("m1");
-			var matrix2 = retrieveMatrix("m2");
+			var matrix1 = Matrices[0];
+			var matrix2 = Matrices[1];
 			if(matrix1.rows != matrix2.rows || matrix1.cols != matrix2.cols)
 			{
 				addOutputMessage("3");
@@ -49,6 +51,24 @@ $(document).ready(function () {
 				addOutputMatrix(outputMatrix);
 			}
 		}	
+	}
+	
+	function handleSubtraction() {
+		retrieveInput();
+		if (numInputMatrices < 2) {
+			addOutputMessage("1");
+		} else if (numInputMatrices > 2) {
+			addOutputMessage("2");
+		} else {
+			var matrix1 = Matrices[0];
+			var matrix2 = Matrices[1];
+			if (matrix1.rows != matrix2.rows || matrix1.cols != matrix2.cols) {
+				addOutputMessage("3");
+			} else {
+				var outputMatrix = subtract(matrix1, matrix2);
+				addOutputMatrix(outputMatrix);
+			}
+		}
 	}
 	
 	function retrieveInput() {
