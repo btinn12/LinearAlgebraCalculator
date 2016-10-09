@@ -82,3 +82,8 @@ input.matrix-maker {
 #matrices-container {
 	vertical-align: middle;
 }
+
+#output-container {
+	vertical-align: middle;
+}	
+}
