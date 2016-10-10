@@ -136,6 +136,7 @@ $(document).ready(function () {
 	}
 	
 	function addOutputMatrix(matrix) {
+		clearOutput();
 		var matrixFieldset = $("<fieldset id=\"out\"></fieldset>");
 		$("#output-container").append(matrixFieldset);
 		for (var i = 0; i < matrix.rows; i++) {
@@ -171,7 +172,6 @@ $(document).ready(function () {
 	{
 		$("#matrices-container").empty();
 		numInputMatrices = 0;
-		clearOutput();
 	}
 	
 	function clearOutput() {
