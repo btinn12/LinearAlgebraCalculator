@@ -17,6 +17,7 @@ $(document).ready(function () {
 	$("#add").click(function() {handleAddition()});
 	$("#subtract").click(function() {handleSubtraction()});
 	$("#multiply").click(function() {handleMultiply()});
+	$("#rref").click(function() {handleRREF()});
 	
 	function handleAddMatrix() {
 		$(".matrix-maker").css('display', 'inline-block');
@@ -85,6 +86,23 @@ $(document).ready(function () {
 				addOutputMessage("3");
 			} else {
 				var outputMatrix = matrixMult(matrix1, matrix2);
+				addOutputMatrix(outputMatrix);
+			}
+		}
+	}
+	
+	function handleRREF() {
+		retrieveInput();
+		if (numInputMatrices < 1) {
+			addOutputMessage("1");
+		} else if (numInputMatrices > 1) {
+			addOutputMessage("2");
+		} else {
+			var matrix = Matrices[0];
+			if (matrix.rows != matrix.cols) {
+				addOutputMessage("3");
+			} else {
+				var outputMatrix = RREF(matrix);
 				addOutputMatrix(outputMatrix);
 			}
 		}

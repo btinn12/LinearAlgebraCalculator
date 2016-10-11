@@ -97,3 +97,42 @@ function createCofactor(matrix, col)
 	}
 	return cofactor;
 }
+
+function RREF(matrix) {
+	for (var i = 0; i < matrix.cols; i++) {
+		rowScaling(matrix, i, 1/matrix.get(i, i));
+		for (var j = 0; j < matrix.rows; j++) {
+			if (j == i) {
+				
+			} else {
+				rowReplacement(matrix, j, (-1)*matrix.get(i, i)*matrix.get(j, i), i);
+			}
+		}
+	}
+	return matrix;
+}
+
+function rowScaling(matrix, row, c) {
+	for (var i = 0; i < matrix.cols; i++) {
+		matrix.set(c * matrix.get(row, i), row, i);
+	}
+}
+
+function rowReplacement(matrix, row1, c, row2) {
+	for (var i = 0; i < matrix.cols; i++) {
+		matrix.set(matrix.get(row1, i) + (c * matrix.get(row2, i)), row1, i);
+	}
+}
+
+function rowInterchange(matrix, row1, row2) {
+	var tempRow = [];
+	for (var i = 0; i < matrix.cols; i++) {
+		tempRow[i] = matrix.get(row1, i);
+	}
+	for (var i = 0; i < matrix.cols; i++) {
+		matrix.set(matrix.get(row2, i), row1, i);
+	}
+	for (var i = 0; i < matrix.cols; i++) {
+		matrix.set(tempRow[i], row2, i);
+	}
+}
