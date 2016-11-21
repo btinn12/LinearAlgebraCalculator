@@ -100,12 +100,15 @@ function createCofactor(matrix, col)
 
 function RREF(matrix) {
 	for (var i = 0; i < matrix.cols; i++) {
-		rowScaling(matrix, i, 1/matrix.get(i, i));
-		for (var j = 0; j < matrix.rows; j++) {
-			if (j == i) {
-				
-			} else {
-				rowReplacement(matrix, j, (-1)*matrix.get(i, i)*matrix.get(j, i), i);
+		if (matrix.get(i, i) != 0) {
+			rowScaling(matrix, i, 1/matrix.get(i, i));
+		
+			for (var j = 0; j < matrix.rows; j++) {
+				if (j == i) {
+					
+				} else {
+					rowReplacement(matrix, j, (-1)*matrix.get(i, i)*matrix.get(j, i), i);
+				}
 			}
 		}
 	}
