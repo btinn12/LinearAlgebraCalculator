@@ -100,7 +100,7 @@ function createCofactor(matrix, col)
 
 function RREF(matrix) {
 	for (var i = 0; i < matrix.cols; i++) {
-		if (matrix.get(i, i) != 0) {
+		if (i < matrix.rows && matrix.get(i, i) != 0) {
 			rowScaling(matrix, i, 1/matrix.get(i, i));
 		
 			for (var j = 0; j < matrix.rows; j++) {
