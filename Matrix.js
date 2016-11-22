@@ -99,7 +99,18 @@ function createCofactor(matrix, col)
 }
 
 function RREF(matrix) {
-	for (var i = 0; i < matrix.cols; i++) {
+	if (matrix.get(0, 0) == 0) {
+		for (var i = 1; i < matrix.rows; i++) {
+			if (matrix.get(i, 0) != 0) {
+				rowInterchange(matrix, 0, i);
+			}
+		}
+	}
+	var start = 0;
+	if (matrix.get(0, 0) == 0) {
+		start = 1;
+	}
+	for (var i = start; i < matrix.cols; i++) {
 		if (i < matrix.rows && matrix.get(i, i) != 0) {
 			rowScaling(matrix, i, 1/matrix.get(i, i));
 		

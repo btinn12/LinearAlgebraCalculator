@@ -99,12 +99,8 @@ $(document).ready(function () {
 			addOutputMessage("2");
 		} else {
 			var matrix = Matrices[0];
-			//if (matrix.rows != matrix.cols) {
-				//addOutputMessage("3");
-			//} else {
-				var outputMatrix = RREF(matrix);
-				addOutputMatrix(outputMatrix);
-			//}
+			var outputMatrix = RREF(matrix);
+			addOutputMatrix(outputMatrix);
 		}
 	}
 	
