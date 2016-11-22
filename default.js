@@ -179,9 +179,9 @@ $(document).ready(function () {
 		var error = $("#outputError");
 		switch(msg)
 		{
-			case "1": error.html("Not enough matrices to compute.");
-			case "2": error.html("Too many matrices to compute.");
-			case "3": error.html("Incorrect rows/columns to compute.")
+			case "1": error.html("Not enough matrices to compute."); break;
+			case "2": error.html("Too many matrices to compute."); break;
+			case "3": error.html("Incorrect rows/columns to compute."); break;
 			default: error.html(msg);
 		}
 	}
