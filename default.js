@@ -33,15 +33,8 @@ $(document).ready(function () {
 	
 	function handleAddition() {
 		retrieveInput();
-		if(numInputMatrices<2)
-		{
-			addOutputMessage("1");
-		}
-		else if(numInputMatrices>2)
-		{
-			addOutputMessage("2");
-		}
-		else
+		var valid = checkErrors(numInputMatrices, 2);
+		if(valid)
 		{
 			var matrix1 = Matrices[0];
 			var matrix2 = Matrices[1];
@@ -57,11 +50,8 @@ $(document).ready(function () {
 	
 	function handleSubtraction() {
 		retrieveInput();
-		if (numInputMatrices < 2) {
-			addOutputMessage("1");
-		} else if (numInputMatrices > 2) {
-			addOutputMessage("2");
-		} else {
+		var valid = checkErrors(numInputMatrices, 2);
+		if(valid) {
 			var matrix1 = Matrices[0];
 			var matrix2 = Matrices[1];
 			if (matrix1.rows != matrix2.rows || matrix1.cols != matrix2.cols) {
@@ -75,11 +65,8 @@ $(document).ready(function () {
 	
 	function handleMultiply() {
 		retrieveInput();
-		if (numInputMatrices < 2) {
-			addOutputMessage("1");
-		} else if (numInputMatrices > 2) {
-			addOutputMessage("2");
-		} else {
+		var valid = checkErrors(numInputMatrices, 2);
+		if(valid) {
 			var matrix1 = Matrices[0];
 			var matrix2 = Matrices[1];
 			if (matrix1.cols != matrix2.rows) {
@@ -93,11 +80,8 @@ $(document).ready(function () {
 	
 	function handleRREF() {
 		retrieveInput();
-		if (numInputMatrices < 1) {
-			addOutputMessage("1");
-		} else if (numInputMatrices > 1) {
-			addOutputMessage("2");
-		} else {
+		var valid = checkErrors(numInputMatrices, 1);
+		if(valid) {
 			var matrix = Matrices[0];
 			var outputMatrix = RREF(matrix);
 			addOutputMatrix(outputMatrix);
@@ -170,6 +154,22 @@ $(document).ready(function () {
 		$("#out").css('display','inline-block');
 	}
 	
+	function checkErrors(numInputMatrices, necessarryMatrices) 
+	{
+		if(numInputMatrices < necessarryMatrices)
+		{
+			addOutputMessage("1");
+			return false;
+		}
+		else if(numInputMatrices > necessarryMatrices)
+		{
+			addOutputMessage("2");
+			return false;
+		}
+		
+		return true;
+	}
+	
 	function addOutputMessage(msg)
 	{
 		var error = $("#outputError");
@@ -199,8 +199,11 @@ $(document).ready(function () {
 		var A = new Matrix(parseInt(rows), parseInt(cols));
 		var inputs = $("#" + matrixName + " input");
 		jQuery.each(inputs, function(i, el) {
-			var element = $(el);
-			A.set(parseInt(element.val()), Math.floor(i/cols), i%cols);
+			var element = $(el).val();
+			if (element != "")
+			{
+				A.set(parseInt(element), Math.floor(i/cols), i%cols);
+			}
 		});
 		return A;
 	}
