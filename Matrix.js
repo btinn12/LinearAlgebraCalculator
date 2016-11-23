@@ -98,7 +98,7 @@ function createCofactor(matrix, col)
 	return cofactor;
 }
 
-function newRREF(matrix) {
+function RREF(matrix) {
 	var currentCol = 0;
 	var currentRow = 0;
 	var pivotsFound = 0;
