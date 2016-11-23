@@ -101,16 +101,17 @@ function createCofactor(matrix, col)
 function RREF(matrix) {
 	var currentCol = 0;
 	var currentRow = 0;
+	var nonPivotValue = matrix.cols + 1;
 	var pivotsFound = 0;
 	var pivotRows = {};
 	for (var i = 0; i < matrix.rows; i++) {
-		pivotRows[i] = 0;
+		pivotRows[i] = nonPivotValue;
 	}
 	//Cycle through the entire matrix looking for pivotsFound
 	//When a pivot is found, do necessary row operations to simplify column
-	while (pivotRows < matrix.rows && currentCol < matrix.cols) {
+	while (pivotsFound < matrix.rows && currentCol < matrix.cols) {
 		// IF statement checks if current location is a pivot
-		if (matrix.get(currentRow, currentCol) != 0 && pivotRows[currentRow] != 0) {
+		if (matrix.get(currentRow, currentCol) != 0 && pivotRows[currentRow] == nonPivotValue) {
 			pivotsFound++;
 			pivotRows[currentRow] = currentCol;
 			rowScaling(matrix, currentRow, 1/matrix.get(currentRow, currentCol));
@@ -118,7 +119,7 @@ function RREF(matrix) {
 				if (i == currentRow) {
 					
 				} else {
-					rowReplacement(matrix, currentRow, (-1)*matrix.get(currentRow, currentCol), i);
+					rowReplacement(matrix, i, (-1)*matrix.get(i, currentCol), currentRow);
 				}
 			}
 		}
