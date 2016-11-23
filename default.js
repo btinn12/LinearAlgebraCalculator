@@ -83,8 +83,8 @@ $(document).ready(function () {
 		var valid = checkErrors(numInputMatrices, 1);
 		if(valid) {
 			var matrix = Matrices[0];
-			var outputMatrix = RREF(matrix);
-			addOutputMatrix(outputMatrix);
+			RREF(matrix);
+			addOutputMatrix(matrix);
 		}
 	}
 	
