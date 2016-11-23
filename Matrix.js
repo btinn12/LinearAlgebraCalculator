@@ -98,31 +98,43 @@ function createCofactor(matrix, col)
 	return cofactor;
 }
 
-function RREF(matrix) {
-	if (matrix.get(0, 0) == 0) {
-		for (var i = 1; i < matrix.rows; i++) {
-			if (matrix.get(i, 0) != 0) {
-				rowInterchange(matrix, 0, i);
-			}
-		}
+function newRREF(matrix) {
+	var currentCol = 0;
+	var currentRow = 0;
+	var pivotsFound = 0;
+	var pivotRows = {};
+	for (var i = 0; i < matrix.rows; i++) {
+		pivotRows[i] = 0;
 	}
-	var start = 0;
-	if (matrix.get(0, 0) == 0) {
-		start = 1;
-	}
-	for (var i = start; i < matrix.cols; i++) {
-		if (i < matrix.rows && matrix.get(i, i) != 0) {
-			rowScaling(matrix, i, 1/matrix.get(i, i));
-		
-			for (var j = 0; j < matrix.rows; j++) {
-				if (j == i) {
+	//Cycle through the entire matrix looking for pivotsFound
+	//When a pivot is found, do necessary row operations to simplify column
+	while (pivotRows < matrix.rows && currentCol < matrix.cols) {
+		// IF statement checks if current location is a pivot
+		if (matrix.get(currentRow, currentCol) != 0 && pivotRows[currentRow] != 0) {
+			pivotsFound++;
+			pivotRows[currentRow] = currentCol;
+			rowScaling(matrix, currentRow, 1/matrix.get(currentRow, currentCol));
+			for (var i = 0; i < matrix.rows; i++) {
+				if (i == currentRow) {
 					
 				} else {
-					rowReplacement(matrix, j, (-1)*matrix.get(i, i)*matrix.get(j, i), i);
+					rowReplacement(matrix, currentRow, (-1)*matrix.get(currentRow, currentCol), i);
 				}
 			}
 		}
+		// Go to the next location in the matrix
+		if (currentRow + 1 < matrix.rows) {
+			currentRow++;
+		} else {
+			currentRow = 0;
+			currentCol++;
+		}
 	}
+	// Reorder the rows so that the pivots are in descending order
+	/*var end = matrix.rows - 1;
+	for (var i = 0; i < matrix.rows; i++) {
+		
+	}*/
 	return matrix;
 }
 
