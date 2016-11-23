@@ -132,10 +132,19 @@ function RREF(matrix) {
 		}
 	}
 	// Reorder the rows so that the pivots are in descending order
-	/*var end = matrix.rows - 1;
-	for (var i = 0; i < matrix.rows; i++) {
-		
-	}*/
+	var end = matrix.rows - 1;
+	var largest = 0;
+	for (var i = end; i >= 0; i--) {
+		for (var j = 0; j <= end; j++) {
+			if (pivotRows[j] > pivotRows[largest]) {
+				largest = i;
+			}	
+		}
+		var temp = pivotRows[end];
+		pivotRows[end] = pivotRows[largest];
+		pivotRows[largest] = temp;
+		rowInterchange(matrix, largest, end);
+	}
 	return matrix;
 }
 
