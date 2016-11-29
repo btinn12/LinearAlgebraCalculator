@@ -139,7 +139,17 @@ function RREF(matrix) {
 	}
 	//Cycle through the entire matrix looking for pivotsFound
 	//When a pivot is found, do necessary row operations to simplify column
-	while (pivotsFound < matrix.rows && currentCol < matrix.cols) {
+	
+	/*
+	* There is currently a bug where if the number of cols is greater than the number of rows
+	* it will find a pivot in the cols where it should not find them. It sometimes will find pivots
+	* in the 'b' column. Don't know how to fix because the final column may or may not be a 'b' column
+	* depending on what the user wants. 
+	*
+	* For now I am fixing by always assuming that the rightmost column is a 'b' column, 
+	* Assumes it is an augmented matrix.
+	*/
+	while (pivotsFound < matrix.rows && currentCol < matrix.cols - 1) {
 		// IF statement checks if current location is a pivot
 		if (matrix.get(currentRow, currentCol) != 0 && pivotRows[currentRow] == nonPivotValue) {
 			pivotsFound++;
@@ -174,6 +184,7 @@ function RREF(matrix) {
 		pivotRows[i] = pivotRows[largest];
 		pivotRows[largest] = temp;
 		rowInterchange(matrix, largest, i);
+		largest = 0;
 	}
 	return matrix;
 }
