@@ -18,7 +18,6 @@ $(document).ready(function () {
 	$("#subtract").click(function() {handleSubtraction()});
 	$("#multiply").click(function() {handleMultiply()});
 	$("#rref").click(function() {handleRREF()});
-	$("#inverse").click(function() {handleInverse()});
 	
 	function handleAddMatrix() {
 		$(".matrix-maker").css('display', 'inline-block');
@@ -89,20 +88,6 @@ $(document).ready(function () {
 		}
 	}
 	
-	function handleInverse() {
-		retrieveInput();
-		var valid = checkErrors(numInputMatrices, 1);
-		if (valid) {
-			var matrix = Matrices[0];
-			if(matrix.rows != matrix.cols)
-			{
-				addOutputMessage("3");
-			}
-			inverse(matrix);
-			addOutputMatrix(matrix);
-		}
-	}
-	
 	function retrieveInput() {
 		for (var i = 1; i <= numInputMatrices; i++) {
 			Matrices[i - 1] = retrieveMatrix("m" + i);
@@ -155,7 +140,7 @@ $(document).ready(function () {
 		for (var i = 0; i < matrix.rows; i++) {
 			for (var j = 0; j < matrix.cols; j++) {
 				var val = matrix.get(i, j);
-				$("#out").append("<input type=\"text\" class=\"matrix-output\" value=\"" + val + "\" readonly />");
+				$("#out").append("<input type=\"text\" class=\"matrix-output\" value=\"" + val + "\" disabled />");
 			}
 		}
 		
