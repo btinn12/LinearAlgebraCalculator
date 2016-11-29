@@ -148,6 +148,36 @@ function RREF(matrix) {
 	return matrix;
 }
 
+function inverse(matrix)
+{
+	var augMatrix = new Matrix(matrix.rows, matrix.cols*2);
+	var n = matrix.rows;
+	
+	//Creates augmented matrix of [matrix | identity matrix]
+	for(var i = 0;i < n;i++)
+	{
+		for(var j = 0;j < n;j++)
+		{
+			augMatrix.set(matrix.get(i,j), i, j);
+			if(i == j) 
+			{
+				augMatrix.set(1, i, j+n);
+			}
+		}
+	}
+	
+	RREF(augMatrix);
+	
+	//Extracts right-hand side of augmented matrix as output
+	for(var i = 0;i < n;i++)
+	{
+		for(var j = 0;j < n;j++)
+		{
+			matrix.set(augMatrix.get(i,j+n),i,j);
+		}
+	}
+}
+
 function rowScaling(matrix, row, c) {
 	for (var i = 0; i < matrix.cols; i++) {
 		matrix.set(c * matrix.get(row, i), row, i);

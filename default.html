@@ -9,6 +9,119 @@
 		<script src="default.js"></script>
 		
 		<link rel="stylesheet" href="default.css"></style>
+<<<<<<< Updated upstream
+=======
+		
+		<script>
+			
+			
+			$(document).ready(function () {
+				var amountOfMatrices = 0;
+				var Matrices = [];
+				$("#addMatrix").click(function() {handleAddMatrix()});
+				$("#create").click(function() {createMatrix()});
+				$("#add2x2").click(function() {addMatrix(2,2)});
+				$("#add3x3").click(function() {addMatrix(3,3)});
+				$("#add4x4").click(function() {addMatrix(4,4)});
+				$("#add5x5").click(function() {addMatrix(5,5)});
+				
+				$("#submit").click(function() {retrieveMatrix("m1")});
+				$("#clear").click(function() {clearEquation()});
+				
+				$("#determinant").click(function() {handleDeterminant()});
+				
+				function handleDeterminant() {
+					
+				}
+				
+				function determinant(matrix, n)
+				{
+					if(n == 2)
+					{
+						return matrix[0][0]*matrix[1][1] - matrix[0][1]*matrix[1][0]
+					}
+					else 
+					{
+						var sum = 0;
+						for(var i = 0;i<n;i++)
+						{
+							sum += matrix[0][i]*determinant(createCofactor(matrix, n, i), n-1);
+						}
+						return sum;
+					}
+				}
+				
+				function createCofactor(matrix, col)
+				{
+					var cofacSize = matrix.length-1;
+					var cofactor = new Array(cofacSize, cofacSize);
+					
+					for(var i = 0;i<matrix.length;i++)
+					{
+						if(i == col){}
+						else
+						{
+							for(var j = 1;j<matrix.length;j++)
+							{
+								cofactor[j-1][i] = matrix[j][i];
+							}
+						}
+					}
+					return cofactor;
+				}
+				function handleAddMatrix() {
+					$(".matrix-maker").css('display', 'inline-block');
+				}
+				
+				function createMatrix()
+				{
+					var rows = $("#rows").val();
+					var cols = $("#cols").val();
+					if (rows == "" || rows == null || cols == "" || cols == null) {
+						$("#error").html("Please fill out both fields.");
+					}
+					else if(rows > 10 || cols > 10) {
+						$("#error").html("Max matrix size: 10 x 10")
+					}
+					else {
+						$("div.matrix-maker").html("");
+						addMatrix(rows,cols);
+						$(".matrix-maker").css('display', 'none');
+					}
+				}
+				
+				function addMatrix(rows, cols) {
+					amountOfMatrices++;
+					var matrixName = "m" + amountOfMatrices;
+					var matrixFieldset = "<fieldset id=\"" + matrixName + "\" data-row=\"" + rows + "\" data-col=\"" + cols + "\"></fieldset>";
+					$("#matrices-container").append(matrixFieldset);
+					$("#" + matrixName).css('display', 'none');
+					for(i = 0;i<rows;i++)
+					{
+						for(j = 0;j<cols;j++)
+						{
+							$("#m" + amountOfMatrices).append("<input id=\"" + i + "-" + j + "\" class=\"matrix-input\" />");
+						}
+					}
+					
+					var fieldsetWidth = 10 + (cols-1)*5;
+					var margin = 6.2 - 0.8*(cols-2);
+					var inputWidth = (100 - margin*2*cols)/cols;
+					
+					$("#" + matrixName).css('width', fieldsetWidth + '%');
+					$("#" + matrixName + " input").css('width', inputWidth + '%');
+					$("#" + matrixName + " input").css('margin', margin + '%');
+					$("#" + matrixName).css('display','inline-block');
+				}
+				
+				function clearEquation()
+				{
+					$("#matrices-container").html("");
+				}
+				
+				
+
+>>>>>>> Stashed changes
 
 	</head>
 	<body>
