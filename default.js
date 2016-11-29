@@ -12,12 +12,21 @@ $(document).ready(function () {
 	
 	$("#submit").click(function() {retrieveMatrix("m1")});
 	$("#clear").click(function() {clearEquation()});
+	$("#debug").click(function() {populateMatrices()});
 	
 	$("#determinant").click(function() {handleDeterminant()});
 	$("#add").click(function() {handleAddition()});
 	$("#subtract").click(function() {handleSubtraction()});
 	$("#multiply").click(function() {handleMultiply()});
 	$("#rref").click(function() {handleRREF()});
+	$("#inverse").click(function() {handleInverse()});
+	
+	function populateMatrices() {
+		var inputs = $("#matrices-container input");
+		jQuery.each(inputs, function(i,el) {
+			$(el).val(Math.floor(Math.random()*10 + 1)*(Math.random() > 0.5 ? -1 : 1));
+		});
+	}
 	
 	function handleAddMatrix() {
 		$(".matrix-maker").css('display', 'inline-block');
@@ -84,6 +93,20 @@ $(document).ready(function () {
 		if(valid) {
 			var matrix = Matrices[0];
 			RREF(matrix);
+			addOutputMatrix(matrix);
+		}
+	}
+	
+	function handleInverse() {
+		retrieveInput();
+		var valid = checkErrors(numInputMatrices, 1);
+		if (valid) {
+			var matrix = Matrices[0];
+			if(matrix.rows != matrix.cols)
+			{
+				addOutputMessage("3");
+			}
+			inverse(matrix);
 			addOutputMatrix(matrix);
 		}
 	}
