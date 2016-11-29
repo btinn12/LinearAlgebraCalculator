@@ -135,15 +135,15 @@ function RREF(matrix) {
 	var end = matrix.rows - 1;
 	var largest = 0;
 	for (var i = end; i >= 0; i--) {
-		for (var j = 0; j <= end; j++) {
+		for (var j = 0; j <= i; j++) {
 			if (pivotRows[j] > pivotRows[largest]) {
-				largest = i;
+				largest = j;
 			}	
 		}
-		var temp = pivotRows[end];
-		pivotRows[end] = pivotRows[largest];
+		var temp = pivotRows[i];
+		pivotRows[i] = pivotRows[largest];
 		pivotRows[largest] = temp;
-		rowInterchange(matrix, largest, end);
+		rowInterchange(matrix, largest, i);
 	}
 	return matrix;
 }
