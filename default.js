@@ -19,6 +19,7 @@ $(document).ready(function () {
 	$("#subtract").click(function() {handleSubtraction()});
 	$("#multiply").click(function() {handleMultiply()});
 	$("#rref").click(function() {handleRREF()});
+	$("#aug").click(function() {handleAugMatrix()});
 	$("#inverse").click(function() {handleInverse()});
 	
 	function populateMatrices() {
@@ -92,7 +93,17 @@ $(document).ready(function () {
 		var valid = checkErrors(numInputMatrices, 1);
 		if(valid) {
 			var matrix = Matrices[0];
-			RREF(matrix);
+			RREF(matrix, 0);
+			addOutputMatrix(matrix);
+		}
+	}
+	
+	function handleAugMatrix() {
+		retrieveInput();
+		var valid = checkErrors(numInputMatrices, 1);
+		if (valid) {
+			var matrix = Matrices[0];
+			RREF(matrix, 1);
 			addOutputMatrix(matrix);
 		}
 	}

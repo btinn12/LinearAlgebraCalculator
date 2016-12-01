@@ -128,7 +128,7 @@ function inverse(matrix)
 	}
 }
 
-function RREF(matrix) {
+function RREF(matrix, isAugMatrix) {
 	var currentCol = 0;
 	var currentRow = 0;
 	var nonPivotValue = matrix.cols + 1;
@@ -149,7 +149,7 @@ function RREF(matrix) {
 	* For now I am fixing by always assuming that the rightmost column is a 'b' column, 
 	* Assumes it is an augmented matrix.
 	*/
-	while (pivotsFound < matrix.rows && currentCol < matrix.cols - 1) {
+	while (pivotsFound < matrix.rows && currentCol < matrix.cols - isAugMatrix) {
 		// IF statement checks if current location is a pivot
 		if (matrix.get(currentRow, currentCol) != 0 && pivotRows[currentRow] == nonPivotValue) {
 			pivotsFound++;
