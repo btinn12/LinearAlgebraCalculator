@@ -10,7 +10,13 @@ Matrix.prototype.get = function(r, c) {
 };
 
 Matrix.prototype.set = function(val, r, c) {
-	this.val[r][c] = val;
+	if (val > -.000001 && val < .000001) {
+		this.val[r][c] = 0;
+	} else if (val > .9999 && val < 1) {
+		this.val[r][c] = 1;
+	} else {
+		this.val[r][c] = val;
+	}
 };
 
 Matrix.prototype.initialize = function() {
@@ -139,16 +145,6 @@ function RREF(matrix, isAugMatrix) {
 	}
 	//Cycle through the entire matrix looking for pivotsFound
 	//When a pivot is found, do necessary row operations to simplify column
-	
-	/*
-	* There is currently a bug where if the number of cols is greater than the number of rows
-	* it will find a pivot in the cols where it should not find them. It sometimes will find pivots
-	* in the 'b' column. Don't know how to fix because the final column may or may not be a 'b' column
-	* depending on what the user wants. 
-	*
-	* For now I am fixing by always assuming that the rightmost column is a 'b' column, 
-	* Assumes it is an augmented matrix.
-	*/
 	while (pivotsFound < matrix.rows && currentCol < matrix.cols - isAugMatrix) {
 		// IF statement checks if current location is a pivot
 		if (matrix.get(currentRow, currentCol) != 0 && pivotRows[currentRow] == nonPivotValue) {
@@ -162,9 +158,9 @@ function RREF(matrix, isAugMatrix) {
 					rowReplacement(matrix, i, (-1)*matrix.get(i, currentCol), currentRow);
 				}
 			}
-		}
-		// Go to the next location in the matrix
-		if (currentRow + 1 < matrix.rows) {
+			currentRow = 0;
+			currentCol++;
+		} else if (currentRow + 1 < matrix.rows) {
 			currentRow++;
 		} else {
 			currentRow = 0;
