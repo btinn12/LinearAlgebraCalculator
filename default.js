@@ -34,11 +34,20 @@ $(document).ready(function () {
 	}
 	
 	function handleDeterminant() {
-		var matrix = retrieveMatrix("m1");
-		var output = determinant(matrix, matrix.rows);
-		var outputMatrix = new Matrix(1,1);
-		outputMatrix.set(output, 0, 0);
-		addOutputMatrix(outputMatrix);	
+		retrieveInput();
+		var valid = checkErrors(numInputMatrices, 1);
+		if(valid)
+		{
+			if(Matrices[0].rows != Matrices[0].cols)
+			{
+				addOutputMessage("3");
+			}
+			var output = determinant(Matrices[0], Matrices[0].rows);
+			var outputMatrix = new Matrix(1,1);
+			outputMatrix.set(output, 0, 0);
+			addOutputMatrix(outputMatrix);
+		}
+			
 	}
 	
 	function handleAddition() {
@@ -46,13 +55,11 @@ $(document).ready(function () {
 		var valid = checkErrors(numInputMatrices, 2);
 		if(valid)
 		{
-			var matrix1 = Matrices[0];
-			var matrix2 = Matrices[1];
-			if(matrix1.rows != matrix2.rows || matrix1.cols != matrix2.cols)
+			if(Matrices[0].rows != Matrices[1].rows || Matrices[0].cols != Matrices[1].cols)
 			{
 				addOutputMessage("3");
 			} else {
-				var outputMatrix = add(matrix1, matrix2);
+				var outputMatrix = add(Matrices[0], Matrices[1]);
 				addOutputMatrix(outputMatrix);
 			}
 		}	
@@ -62,12 +69,10 @@ $(document).ready(function () {
 		retrieveInput();
 		var valid = checkErrors(numInputMatrices, 2);
 		if(valid) {
-			var matrix1 = Matrices[0];
-			var matrix2 = Matrices[1];
-			if (matrix1.rows != matrix2.rows || matrix1.cols != matrix2.cols) {
+			if (Matrices[0].rows != Matrices[1].rows || Matrices[0].cols != Matrices[1].cols) {
 				addOutputMessage("3");
 			} else {
-				var outputMatrix = subtract(matrix1, matrix2);
+				var outputMatrix = subtract(Matrices[0], Matrices[1]);
 				addOutputMatrix(outputMatrix);
 			}
 		}
@@ -77,12 +82,10 @@ $(document).ready(function () {
 		retrieveInput();
 		var valid = checkErrors(numInputMatrices, 2);
 		if(valid) {
-			var matrix1 = Matrices[0];
-			var matrix2 = Matrices[1];
-			if (matrix1.cols != matrix2.rows) {
+			if (Matrices[0].cols != Matrices[1].rows) {
 				addOutputMessage("3");
 			} else {
-				var outputMatrix = matrixMult(matrix1, matrix2);
+				var outputMatrix = matrixMult(Matrices[0], Matrices[1]);
 				addOutputMatrix(outputMatrix);
 			}
 		}
@@ -92,9 +95,8 @@ $(document).ready(function () {
 		retrieveInput();
 		var valid = checkErrors(numInputMatrices, 1);
 		if(valid) {
-			var matrix = Matrices[0];
-			RREF(matrix, 0);
-			addOutputMatrix(matrix);
+			RREF(Matrices[0], 0);
+			addOutputMatrix(Matrices[0]);
 		}
 	}
 	
@@ -102,9 +104,8 @@ $(document).ready(function () {
 		retrieveInput();
 		var valid = checkErrors(numInputMatrices, 1);
 		if (valid) {
-			var matrix = Matrices[0];
-			RREF(matrix, 1);
-			addOutputMatrix(matrix);
+			RREF(Matrices[0], 1);
+			addOutputMatrix(Matrices[0]);
 		}
 	}
 	
@@ -112,13 +113,18 @@ $(document).ready(function () {
 		retrieveInput();
 		var valid = checkErrors(numInputMatrices, 1);
 		if (valid) {
-			var matrix = Matrices[0];
-			if(matrix.rows != matrix.cols)
+			if(Matrices[0].rows != Matrices[0].cols)
 			{
 				addOutputMessage("3");
 			}
-			inverse(matrix);
-			addOutputMatrix(matrix);
+			else if(determinant(Matrices[0], Matrices[0].rows) == 0)
+			{
+				addOutputMessage("Matrix is not invertible.");
+			}
+			else {
+				inverse(Matrices[0]);
+				addOutputMatrix(Matrices[0]);
+			}
 		}
 	}
 	
@@ -207,24 +213,26 @@ $(document).ready(function () {
 	function addOutputMessage(msg)
 	{
 		var error = $("#outputError");
+		var output;
 		switch(msg)
 		{
-			case "1": error.html("Not enough matrices to compute."); break;
-			case "2": error.html("Too many matrices to compute."); break;
-			case "3": error.html("Incorrect rows/columns to compute."); break;
-			default: error.html(msg);
+			case "1": output = "Not enough matrices to compute."; break;
+			case "2": output = "Too many matrices to compute."; break;
+			case "3": output = "Incorrect rows/columns to compute."; break;
+			default: output = msg;
 		}
+		error.html(output);
 	}
 	
 	function clearEquation()
 	{
 		$("#matrices-container").empty();
+		$("#outputError").empty();
 		numInputMatrices = 0;
 	}
 	
 	function clearOutput() {
 		$("#output-container").empty();
-		
 	}
 
 	function retrieveMatrix(matrixName) {
