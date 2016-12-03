@@ -163,8 +163,8 @@ $(document).ready(function () {
 			
 		}
 		
-		var fieldsetWidth = 10 + (cols-1)*5;
-		var margin = 6.2 - 0.8*(cols-2);
+		var fieldsetWidth = 10 + (cols-1)*8;
+		var margin = 5 - 0.5*(cols-2);
 		var inputWidth = (100 - margin*2*cols)/cols;
 		
 		$("#" + matrixName).css('width', fieldsetWidth + '%');
