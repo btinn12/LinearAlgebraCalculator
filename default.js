@@ -1,7 +1,9 @@
 $(document).ready(function () {
 		
 	var numInputMatrices = 0;
+	var numOutputMatrices = 0;
 	var Matrices = [];
+	var OutMatrices = [];
 	
 	$("#addMatrix").click(function() {handleAddMatrix()});
 	$("#create").click(function() {createMatrix()});
@@ -10,9 +12,10 @@ $(document).ready(function () {
 	$("#add4x4").click(function() {addMatrix(4,4)});
 	$("#add5x5").click(function() {addMatrix(5,5)});
 	
-	$("#submit").click(function() {retrieveMatrix("m1")});
 	$("#clear").click(function() {clearEquation()});
 	$("#debug").click(function() {populateMatrices()});
+	
+	$("#paste").click(function() {handlePaste()});
 	
 	$("#determinant").click(function() {handleDeterminant()});
 	$("#add").click(function() {handleAddition()});
@@ -27,6 +30,33 @@ $(document).ready(function () {
 		jQuery.each(inputs, function(i,el) {
 			$(el).val(Math.floor(Math.random()*10 + 1)*(Math.random() > 0.5 ? -1 : 1));
 		});
+	}
+	
+	// This code will need to be tweaked in order to get a fully funcitoning history working
+	// Does not copy the values over correctly for some reason right now --------------------------------
+	function handlePaste() {
+		retrieveOutput();
+		clearEquation();
+		var cols = OutMatrices[0].cols;
+		var rows = OutMatrices[0].rows;
+		var matrixName = "m0";
+		var matrixFieldset = $("<fieldset id=" + matrixName + " data-row=" + rows + " data-col=" + cols + "></fieldset>");
+		$("#matrices-container").append(matrixFieldset);
+		for (var i = 0; i < rows; i++) {
+			for (var j = 0; j < cols; j++) {
+				var val = OutMatrices[0].get(i, j);
+				$("#" + matrixName).append("<input class=\"matrix-input\" value=\"" + val + "\" />");
+			}
+		}
+		
+		var fieldsetWidth = 10 + (cols-1)*5;
+		var margin = 6.2 - 0.8*(cols-2);
+		var inputWidth = (100 - margin*2*cols)/cols;
+		
+		$("#" + matrixName).css('width', fieldsetWidth + '%');
+		$("#" + matrixName + " input").css('width', inputWidth + '%');
+		$("#" + matrixName + " input").css('margin', margin + '%');
+		$("#" + matrixName).css('display','inline-block');
 	}
 	
 	function handleAddMatrix() {
@@ -134,6 +164,12 @@ $(document).ready(function () {
 		}
 	}
 	
+	function retrieveOutput() {
+		for (var i = 1; i <= numOutputMatrices; i++) {
+			OutMatrices[i - 1] = retrieveMatrix("o" + i);
+		}
+	}
+	
 	function createMatrix()
 	{
 		var rows = $("#rows").val();
@@ -175,23 +211,26 @@ $(document).ready(function () {
 	
 	function addOutputMatrix(matrix) {
 		clearOutput();
-		var matrixFieldset = $("<fieldset id=\"out\"></fieldset>");
+		numOutputMatrices++;
+		var matrixName = "o" + numOutputMatrices;
+		var matrixFieldset = $("<fieldset id=" + matrixName + " data-row=" + matrix.rows + " data-col=" + matrix.cols + "></fieldset>");
 		$("#output-container").append(matrixFieldset);
 		for (var i = 0; i < matrix.rows; i++) {
 			for (var j = 0; j < matrix.cols; j++) {
 				var val = matrix.get(i, j);
-				$("#out").append("<input type=\"text\" class=\"matrix-output\" value=\"" + val + "\" disabled />");
+				$("#" + matrixName).append("<input type=\"text\" class=\"matrix-output\" value=\"" + val + "\" disabled />");
 			}
 		}
 		
+		// We should make these variables global and only calculate them a single time
 		var fieldsetWidth = 10 + (matrix.cols-1)*5;
 		var margin = 6.2 - 0.8*(matrix.cols-2);
 		var inputWidth = (100 - margin*2*matrix.cols)/matrix.cols;
 		
-		$("#out").css('width', fieldsetWidth + '%');
-		$("#out input").css('width', inputWidth + '%');
-		$("#out input").css('margin', margin + '%');
-		$("#out").css('display','inline-block');
+		$("#" + matrixName).css('width', fieldsetWidth + '%');
+		$("#" + matrixName + " input").css('width', inputWidth + '%');
+		$("#" + matrixName + " input").css('margin', margin + '%');
+		$("#" + matrixName).css('display','inline-block');
 	}
 	
 	function checkErrors(numInputMatrices, necessarryMatrices) 
@@ -233,18 +272,19 @@ $(document).ready(function () {
 	
 	function clearOutput() {
 		$("#output-container").empty();
+		numOutputMatrices = 0;
 	}
 
 	function retrieveMatrix(matrixName) {
 		var rows = $("#" + matrixName).attr("data-row");
 		var cols = $("#" + matrixName).attr("data-col");
-		var A = new Matrix(parseInt(rows), parseInt(cols));
+		var A = new Matrix(rows, cols);
 		var inputs = $("#" + matrixName + " input");
 		jQuery.each(inputs, function(i, el) {
 			var element = $(el).val();
 			if (element != "")
 			{
-				A.set(parseInt(element), Math.floor(i/cols), i%cols);
+				A.set(parseFloat(element), Math.floor(i/cols), i%cols);
 			}
 		});
 		return A;
