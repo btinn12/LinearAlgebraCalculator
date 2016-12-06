@@ -33,7 +33,6 @@ $(document).ready(function () {
 	}
 	
 	// This code will need to be tweaked in order to get a fully funcitoning history working
-	// Does not copy the values over correctly for some reason right now --------------------------------
 	function handlePaste() {
 		retrieveOutput();
 		clearEquation();
@@ -222,7 +221,6 @@ $(document).ready(function () {
 			}
 		}
 		
-		// We should make these variables global and only calculate them a single time
 		var fieldsetWidth = 10 + (matrix.cols-1)*5;
 		var margin = 6.2 - 0.8*(matrix.cols-2);
 		var inputWidth = (100 - margin*2*matrix.cols)/matrix.cols;
