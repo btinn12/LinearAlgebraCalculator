@@ -9,14 +9,9 @@ Matrix.prototype.get = function(r, c) {
 	return this.val[r][c];
 };
 
-Matrix.prototype.set = function(val, r, c) {
-	if (val > -.000001 && val < .000001) {
-		this.val[r][c] = 0;
-	} else if (val > .9999 && val < 1) {
-		this.val[r][c] = 1;
-	} else {
-		this.val[r][c] = val;
-	}
+Matrix.prototype.set = function(value, r, c) {
+	var setValue = parseFloat(value);
+	this.val[r][c] = (setValue.toExponential().replace(/e[\+\-0-9]*$/, '').replace( /^0\.?0*|\./, '').length < 4 ? setValue : setValue.toPrecision(4));
 };
 
 Matrix.prototype.initialize = function() {
@@ -122,7 +117,7 @@ function inverse(matrix)
 		}
 	}
 	
-	RREF(augMatrix, 0);
+	RREF(augMatrix, 3);
 	
 	//Extracts right-hand side of augmented matrix as output
 	for(var i = 0;i < n;i++)
@@ -134,7 +129,7 @@ function inverse(matrix)
 	}
 }
 
-function RREF(matrix, isAugMatrix) {
+function RREF(matrix, bAmount /*The number of columns in the b side of an augmented matrix*/ ) {
 	var currentCol = 0;
 	var currentRow = 0;
 	var nonPivotValue = matrix.cols + 1;
@@ -145,7 +140,7 @@ function RREF(matrix, isAugMatrix) {
 	}
 	//Cycle through the entire matrix looking for pivotsFound
 	//When a pivot is found, do necessary row operations to simplify column
-	while (pivotsFound < matrix.rows && currentCol < matrix.cols - isAugMatrix) {
+	while (pivotsFound < matrix.rows && currentCol < matrix.cols - bAmount) {
 		// IF statement checks if current location is a pivot
 		if (matrix.get(currentRow, currentCol) != 0 && pivotRows[currentRow] == nonPivotValue) {
 			pivotsFound++;
