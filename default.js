@@ -7,6 +7,7 @@ $(document).ready(function () {
 	
 	$("#addMatrix").click(function() {handleAddMatrix()});
 	$("#create").click(function() {createMatrix()});
+	$("#closeCreation").click(function() {closeCreationRow()});
 	$("#add2x2").click(function() {addMatrix(2,2)});
 	$("#add3x3").click(function() {addMatrix(3,3)});
 	$("#add4x4").click(function() {addMatrix(4,4)});
@@ -60,6 +61,10 @@ $(document).ready(function () {
 	
 	function handleAddMatrix() {
 		$(".matrix-maker").css('display', 'inline-block');
+	}
+	
+	function closeCreationRow() {
+		$(".matrix-maker").css('display', 'none');
 	}
 	
 	function handleDeterminant() {
@@ -182,7 +187,7 @@ $(document).ready(function () {
 		else {
 			$("div.matrix-maker").html("");
 			addMatrix(rows,cols);
-			$(".matrix-maker").css('display', 'none');
+			closeCreationRow();
 		}
 	}
 	
