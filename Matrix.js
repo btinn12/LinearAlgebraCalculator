@@ -10,15 +10,7 @@ Matrix.prototype.get = function(r, c) {
 };
 
 Matrix.prototype.set = function(value, r, c) {
-	//var setValue = parseFloat(value);
-	//this.val[r][c] = (setValue.toExponential().replace(/e[\+\-0-9]*$/, '').replace( /^0\.?0*|\./, '').length < 4 ? setValue : setValue.toPrecision(4));
-	if (value > -.000001 && value < .000001) {
-		this.val[r][c] = 0;
-	} else if (value > .9999 && value < 1) {
-		this.val[r][c] = 1;
-	} else {
-		this.val[r][c] = value;
-	}
+	this.val[r][c] = value;
 };
 
 Matrix.prototype.initialize = function() {

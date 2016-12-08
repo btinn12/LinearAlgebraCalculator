@@ -152,6 +152,8 @@ $(document).ready(function () {
 			for (var i = 0; i < matrix.rows; i++) {
 				for (var j = 0; j < matrix.cols; j++) {
 					var val = matrix.get(i, j);
+					var setValue = parseFloat(val);
+					val = (setValue.toExponential().replace(/e[\+\-0-9]*$/, '').replace( /^0\.?0*|\./, '').length < 4 ? setValue : setValue.toPrecision(4));
 					$("#" + matrixName).append("<input type=\"text\" class=\"matrix-output\" value=\"" + val + "\" disabled />");
 				}
 			}
