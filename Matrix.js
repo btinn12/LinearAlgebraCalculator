@@ -126,6 +126,7 @@ function inverse(matrix)
 			matrix.set(augMatrix.get(i,j+n),i,j);
 		}
 	}
+	return matrix;
 }
 
 function RREF(matrix, bAmount) {

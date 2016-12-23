@@ -212,7 +212,7 @@ $(document).ready(function () {
 			case handleInverse:
 				if (!checkNumInputs(numInputMatrices, 1)) {
 					return false;
-				} else if (determinant(input[0]) === 0) {
+				} else if (determinant(input[0], input[0].rows) == 0) {
 					return false;
 				}
 				return true;
