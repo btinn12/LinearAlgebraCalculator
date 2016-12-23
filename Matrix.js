@@ -116,7 +116,7 @@ function inverse(matrix)
 		}
 	}
 	
-	RREF(augMatrix, 3);
+	RREF(augMatrix, 0);
 	
 	//Extracts right-hand side of augmented matrix as output
 	for(var i = 0;i < n;i++)
