@@ -4,6 +4,7 @@ $(document).ready(function () {
 	var numOutputMatrices = 0;
 	var Matrices = [];
 	var OutMatrices = [];
+	var operationHistory = new History();
 	
 	$("#addMatrix").click(function() {handleAddMatrix()});
 	$("#create").click(function() {createMatrix()});
@@ -33,6 +34,7 @@ $(document).ready(function () {
 		if (valid) {
 			op();
 			addMatrix(OutMatrices[0].rows, OutMatrices[0].cols, "output", OutMatrices[0]);
+			operationHistory.add({"input": Matrices, "output": OutMatrices, "op": op});
 		}
 	}
 	

@@ -15,27 +15,27 @@ function History() {
 	this.op = [];
 }
 
-History.prototype.add(obj) {
-	this.input[this.input.length + 1 % this.historyLength] = obj.input;
-	this.output[this.output.length + 1 % this.historyLength] = obj.output;
-	this.op[this.op.length + 1 % this.historyLength] = obj.op;
-	this.tail = this.tail + 1 % historyLength;
+History.prototype.add = function(obj) {
+	this.input[this.input.length % this.historyLength] = obj.input;
+	this.output[this.output.length % this.historyLength] = obj.output;
+	this.op[this.op.length % this.historyLength] = obj.op;
+	this.tail = this.tail + 1 % this.historyLength;
 }
 
 // Will return an object with the information of the operation performed,
 // with index being equal to the number of operations you want to go back
-History.prototype.lookUp(index) {
-	if (index < historyLength && index > 0) {}
+History.prototype.lookUp = function(index) {
+	if (index < this.historyLength && index > 0) {
 		var returnObj = {
-			"input": this.input[index + (historyLength - tail) % historyLength],
-			"output": this.output[index + (historyLength - tail) % historyLength],
-			"op": this.op[index + (historyLength - tail) % historyLength];
+			"input": this.input[index + (this.historyLength - this.tail) % this.historyLength],
+			"output": this.output[index + (this.historyLength - this.tail) % this.historyLength],
+			"op": this.op[index + (this.historyLength - this.tail) % this.historyLength]
 		};
 		return returnObj;
 	}
 }
 
-History.prototype.clear() {
+History.prototype.clear = function() {
 	this.tail = 0;
 	this.input = [];
 	this.output = [];
