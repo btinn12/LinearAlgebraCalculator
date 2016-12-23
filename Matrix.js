@@ -1,6 +1,6 @@
 function Matrix(rows, cols) {
-	this.rows = rows;
-	this.cols = cols;
+	this.rows = parseInt(rows);
+	this.cols = parseInt(cols);
 	this.val = [];
 	this.initialize();
 }
